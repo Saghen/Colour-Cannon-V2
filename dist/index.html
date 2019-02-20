@@ -1,0 +1,53 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Colour Cannon</title>
+  <style>body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    canvas {
+      background: #1a1a1a;
+      cursor: url("cursor.81141ae2.svg"), crosshair !important;
+    }
+
+    .controls {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      padding: 20px;
+      background: #333;
+      color: #fff;
+      border-radius: 6px;
+    }
+
+    .controls > * {
+      margin: 0;
+    }
+
+    .controls > * + * {
+      margin-top: 15px;
+    }</style>
+</head>
+
+<body>
+  <div class="controls">
+    <h2 style="text-align: center;">Options</h2>
+    <select id="type" name="object-type">
+      <option value="square" selected="">Square</option>
+      <option value="circle">Circle</option>
+    </select>
+    <span>Size: <input id="size" name="size" type="number" value="6"></span>
+    <span>Speed: <input id="speed" name="speed" type="number" value="35"></span>
+    <span>Columns: <input id="columns" name="columns" type="number" value="40"></span>
+  </div>
+</body>
+<script src="/renderer.3db12799.js"></script>
+</html>

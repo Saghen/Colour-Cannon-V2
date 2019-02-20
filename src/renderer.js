@@ -21,10 +21,13 @@ const Deque = require("double-ended-queue");
 
 const app = new PIXI.Application({
   autoResize: true,
-  resolution: devicePixelRatio
+  resolution: devicePixelRatio,
+  antialias: true
 });
 
-let container = new PIXI.ParticleContainer(1000000, { uvs: false, rotation: false, vertices: false });
+let container = new PIXI.ParticleContainer(1000000, { tint: true });
+
+
 app.stage.addChild(container);
 
 document.body.appendChild(app.view);
@@ -82,12 +85,14 @@ class Circle {
       let x = mousePos.x - this.x;
       let y = mousePos.y - this.y;
       let h = Math.sqrt(x ** 2 + y ** 2);
-      this.direction = [x / h, y / h];
+      this.directionX = x / h;
+      this.directionY = y / h;
     }
-    else this.active = false;
+    else
+      this.active = false;
 
-    this.x += this.direction[0] * speed;
-    this.y += this.direction[1] * speed;
+    this.x += this.directionX * speed;
+    this.y += this.directionY * speed;
 
     let hue = (this.y / app.view.height) + counter / 180 + Math.abs(this.column - (columns / 2)) / (columns * 1);
 
@@ -111,13 +116,13 @@ const texture = app.renderer.generateTexture(graphic);
 function spawnCircles() {
   if (mouseDown) {
     for (let i = 0; i < columns; i++)
-      circles.push(new Circle(app.view.width * i / (columns - 1), i, PIXI.Sprite.from(texture)));
+      circles.push(new Circle(app.view.width * i / (columns - 1), i, new PIXI.Sprite.from(texture)));
   }
 }
 
-function updateCircles(delta) {
+function updateCircles() {
   for (let i = 0; i < circles.length; i++) {
-    circles.get(i).update(delta);
+    circles.get(i).update();
   }
 
   for (let i = 0; i < circles.length; i++) {
@@ -128,7 +133,7 @@ function updateCircles(delta) {
     } else break;
   }
 
-  container.onChildrenChange(0);
+  container.onChildrenChange();
 
   counter++;
 }
@@ -142,11 +147,6 @@ function drawCircles() {
     circle.sprite.x = circle.x;
     circle.sprite.y = circle.y;
   }
-}
-
-function updateSize() {
-  size = +document.querySelector('input[name=size]').value;
-  updateCircleImgs();
 }
 
 function toHex(x) {

@@ -9,7 +9,7 @@ The solution uses a custom version of Pixi's container and particle container cl
 
 Scripting time is still the largest bottleneck at high particle counts. 
 
-HSLtoHex function needs to be heavily optimized
-Switch to WASM for certain number crunching operations (such as the calculation of vectors for the particles)
-Further optimizations to the render function
-Instancing
+- HSLtoHex function needs to be heavily optimized
+- Switch to WASM for certain number crunching operations (such as the calculation of vectors for the particles)
+- Further optimizations to the render function
+- Instancing
